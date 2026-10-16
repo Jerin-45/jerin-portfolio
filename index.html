@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Arockia Jerin Infant J – MCA Student & Aspiring Software Developer. Portfolio showcasing web development, AI and cloud computing projects." />
+  <meta name="keywords"
+    content="Arockia Jerin Infant J, MCA student, software developer, web development, portfolio, React, Python, AI, cloud" />
+  <meta name="author" content="Arockia Jerin Infant J" />
+  <meta property="og:title" content="Arockia Jerin Infant J | Portfolio" />
+  <meta property="og:description"
+    content="MCA Student & Aspiring Software Developer. Building modern web experiences and exploring AI & cloud computing." />
+  <meta property="og:type" content="website" />
+  <title>Arockia Jerin Infant J | Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Stylesheet & Scripts -->
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- =============================== -->
+  <!--     CUSTOM RELOAD SCREEN        -->
+  <!-- =============================== -->
+  <div id="custom-reload-screen"
+    style="position: fixed; inset: 0; z-index: 100000; background: var(--clr-bg); display: flex; align-items: center; justify-content: center; transition: opacity 0.5s var(--ease); pointer-events: all;">
+    <h2
+      style="font-family: var(--font-primary); font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 700; color: var(--clr-text); margin: 0; text-align: center;">
+      Build. Break. Improve.</h2>
+  </div>
+  <script>
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        var crs = document.getElementById("custom-reload-screen");
+        if (crs) {
+          crs.style.opacity = "0";
+          crs.style.pointerEvents = "none";
+        }
+      }, 1800); // Fades out automatically between 1.5 - 2 seconds
+    });
+  </script>
+  <!-- =============================== -->
+  <!--        LOADING SCREEN           -->
+  <!-- =============================== -->
+  <div id="loader" class="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+      <span class="loader-text">Initializing...</span>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!--        CUSTOM CURSOR            -->
+  <!-- =============================== -->
+
+  <!-- =============================== -->
+  <!--          NAVIGATION             -->
+  <!-- =============================== -->
+  <header id="navbar" class="navbar" role="banner">
+    <nav class="nav-container" role="navigation" aria-label="Main navigation">
+
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#home" class="nav-link" id="nav-home">Home</a></li>
+        <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
+        <li><a href="#skills" class="nav-link" id="nav-skills">Skills</a></li>
+        <li><a href="#projects" class="nav-link" id="nav-projects">Projects</a></li>
+        <li><a href="#certifications" class="nav-link" id="nav-certs">Certifications</a></li>
+        <li><a href="#education" class="nav-link" id="nav-edu">Education</a></li>
+        <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <button class="mobile-close" id="mobile-close" aria-label="Close menu">&#10005;</button>
+    <ul class="mobile-nav-links" role="list">
+      <li><a href="#home" class="mobile-nav-link" id="m-nav-home">Home</a></li>
+      <li><a href="#about" class="mobile-nav-link" id="m-nav-about">About</a></li>
+      <li><a href="#skills" class="mobile-nav-link" id="m-nav-skills">Skills</a></li>
+      <li><a href="#projects" class="mobile-nav-link" id="m-nav-projects">Projects</a></li>
+      <li><a href="#certifications" class="mobile-nav-link" id="m-nav-certs">Certifications</a></li>
+      <li><a href="#education" class="mobile-nav-link" id="m-nav-edu">Education</a></li>
+      <li><a href="#contact" class="mobile-nav-link" id="m-nav-contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <main id="main-content">
+
+    <!-- =============================== -->
+    <!--           HERO SECTION          -->
+    <!-- =============================== -->
+    <section id="home" class="hero" aria-label="Hero section">
+      <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="orb orb-1" aria-hidden="true"></div>
+      <div class="orb orb-2" aria-hidden="true"></div>
+      <div class="orb orb-3" aria-hidden="true"></div>
+
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-greeting reveal-text" id="hero-greeting">
+            <span class="greeting-line"></span>
+            <span>Hello, I'm</span>
+          </div>
+          <h1 class="hero-name reveal-text" id="hero-name" aria-label="Arockia Jerin Infant J"></h1>
+          <p class="hero-role reveal-text" id="hero-role"></p>
+          <p class="hero-description reveal-text" id="hero-description"></p>
+
+          <div class="hero-actions reveal-text" id="hero-actions">
+            <a href="#projects" class="btn btn-primary" id="btn-view-work">
+              <span>View My Work</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <!-- RESUME BUTTON -->
+            <button type="button" class="btn btn-secondary" id="btn-resume" aria-label="View Resume" onclick="openResumeModal(event)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              <span>View Resume</span>
+            </button>
+            <a href="" class="btn btn-icon" id="btn-linkedin" target="_blank" rel="noopener noreferrer"
+              aria-label="LinkedIn Profile">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+            <a href="" class="btn btn-icon" id="btn-github" target="_blank" rel="noopener noreferrer"
+              aria-label="GitHub Profile">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="scroll-indicator reveal-text" aria-hidden="true">
+            <div class="scroll-mouse">
+              <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll</span>
+          </div>
+        </div>
+
+        <div class="hero-image-wrapper reveal-text" id="hero-image-wrapper">
+          <div class="hero-image-frame">
+            <div class="frame-ring ring-1" aria-hidden="true"></div>
+            <div class="frame-ring ring-2" aria-hidden="true"></div>
+            <div class="frame-ring ring-3" aria-hidden="true"></div>
+            <div class="hero-glow" aria-hidden="true"></div>
+            <!-- CHANGE PROFILE PHOTO HERE -->
+            <img src="" alt="Arockia Jerin Infant J" class="hero-profile-img" id="hero-profile-img" loading="eager" />
+            <label class="profile-upload-overlay" for="profile-upload-input" title="Click to change profile photo"
+              aria-label="Change profile photo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                <circle cx="12" cy="13" r="4" />
+              </svg>
+              <span>Change Photo</span>
+            </label>
+            <input type="file" id="profile-upload-input" accept="image/*" class="sr-only"
+              aria-label="Upload profile photo" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================== -->
+    <!--          ABOUT SECTION          -->
+    <!-- =============================== -->
+    <section id="about" class="about section" aria-label="About section">
+      <div class="section-container">
+        <div class="section-header" data-reveal>
+          <span class="section-tag">Get to know me</span>
+          <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-image-col" data-reveal data-reveal-delay="100">
+            <div class="about-image-wrap">
+              <div class="about-img-glow" aria-hidden="true"></div>
+              <!-- CHANGE PROFILE PHOTO HERE -->
+              <img src="" alt="Arockia Jerin Infant J" class="about-profile-img" id="about-profile-img"
+                loading="lazy" />
+              <div class="about-img-badge" aria-hidden="true">
+                <span class="badge-num">2+</span>
+                <span class="badge-label">Years of<br />Learning</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-content-col" data-reveal data-reveal-delay="200">
+            <p class="about-bio" id="about-bio"></p>
+            <p class="about-bio about-bio-2" id="about-bio-2"></p>
+            <div class="about-stats" id="about-stats" role="list"></div>
+            <div class="about-actions">
+              <a href="#contact" class="btn btn-primary" id="about-contact-btn">
+                <span>Let's Connect</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+              <button type="button" class="btn btn-secondary" id="about-resume-btn" aria-label="View Resume" onclick="openResumeModal(event)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+                <span>View Resume</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================== -->
+    <!--          SKILLS SECTION         -->
+    <!-- =============================== -->
+    <section id="skills" class="skills section" aria-label="Skills section">
+      <div class="section-container">
+        <div class="section-header" data-reveal>
+          <span class="section-tag">What I work with</span>
+          <h2 class="section-title">My <span class="gradient-text">Skills</span></h2>
+        </div>
+        <div class="skills-grid" id="skills-grid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- =============================== -->
+    <!--         PROJECTS SECTION        -->
+    <!-- =============================== -->
+    <section id="projects" class="projects section" aria-label="Projects section">
+      <div class="section-container">
+        <div class="section-header" data-reveal>
+          <span class="section-tag">What I've built</span>
+          <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+        </div>
+        <div class="projects-grid" id="projects-grid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- =============================== -->
+    <!--      CERTIFICATIONS SECTION     -->
+    <!-- =============================== -->
+    <section id="certifications" class="certifications section" aria-label="Certifications section">
+      <div class="section-container">
+        <div class="section-header" data-reveal>
+          <span class="section-tag">Credentials</span>
+          <h2 class="section-title">My <span class="gradient-text">Certifications</span></h2>
+          <p class="section-subtitle">Official verified licenses, skill assessments, and course certifications hosted directly on LinkedIn.</p>
+        </div>
+
+        <!-- Featured LinkedIn Showcase Card -->
+        <div class="linkedin-showcase-card" data-reveal style="max-width: 840px; margin: 0 auto 2.5rem; background: linear-gradient(135deg, rgba(10, 102, 194, 0.08), rgba(91, 82, 240, 0.12)); border: 1.5px solid rgba(10, 102, 194, 0.3); border-radius: var(--radius-lg, 16px); padding: 1.75rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; box-shadow: var(--shadow-card);">
+          <div style="display: flex; align-items: center; gap: 1.15rem;">
+            <div style="width: 52px; height: 52px; border-radius: 12px; background: #0a66c2; display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; box-shadow: 0 4px 14px rgba(10,102,194,0.35);">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div>
+              <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.25rem;">Watch All Certifications on LinkedIn</h3>
+              <p style="font-size: 0.9rem; color: var(--clr-text-muted); margin: 0;">Verified credentials, licenses, and skill certifications accessible directly on my official profile.</p>
+            </div>
+          </div>
+          <a href="https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: #0a66c2; border-color: #0a66c2; display: inline-flex; align-items: center; gap: 8px;">
+            <span>Watch on LinkedIn</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+
+        <div class="certs-grid" id="certs-grid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- =============================== -->
+    <!--         EDUCATION SECTION       -->
+    <!-- =============================== -->
+    <section id="education" class="education section" aria-label="Education section">
+      <div class="section-container">
+        <div class="section-header" data-reveal>
+          <span class="section-tag">Academic journey</span>
+          <h2 class="section-title">My <span class="gradient-text">Education</span></h2>
+        </div>
+        <div class="timeline" id="education-timeline" role="list"></div>
+      </div>
+    </section>
+
+    <!-- =============================== -->
+    <!--         CONTACT SECTION         -->
+    <!-- =============================== -->
+    <section id="contact" class="contact section" aria-label="Contact section">
+      <div class="section-container">
+        <div class="section-header" data-reveal>
+          <span class="section-tag">Get in touch</span>
+          <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+          <p class="section-subtitle" id="contact-subtitle"></p>
+        </div>
+        <div class="contact-cards" id="contact-cards" role="list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================== -->
+  <!--            FOOTER               -->
+  <!-- =============================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-container">
+      <p class="footer-text" id="footer-text"></p>
+      <p class="footer-copy">Crafted with <span class="heart">&#9825;</span> using HTML, CSS &amp; JavaScript</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+
+  <!-- =============================== -->
+  <!--         VIDEO MODAL             -->
+  <!-- =============================== -->
+  <div id="video-modal" class="video-modal" aria-hidden="true"
+    style="opacity: 0; visibility: hidden; position: fixed; inset: 0; z-index: 1050; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: opacity 0.3s, visibility 0.3s;">
+    <div class="video-modal-content"
+      style="position: relative; width: 90%; max-width: 900px; aspect-ratio: 16/9; background: #000; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); transform: scale(0.95); transition: transform 0.3s;">
+      <button class="video-modal-close" id="video-modal-close" aria-label="Close video"
+        style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; z-index: 10; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">&times;</button>
+      <div id="video-container" class="video-container" style="width: 100%; height: 100%;"></div>
+    </div>
+  <!-- =============================== -->
+  <!--         RESUME MODAL            -->
+  <!-- =============================== -->
+  <div id="resume-modal" class="resume-modal" aria-hidden="true"
+    style="opacity: 0; visibility: hidden; position: fixed; inset: 0; z-index: 1100; background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 1.5rem; transition: opacity 0.3s, visibility 0.3s;">
+    <div class="resume-modal-dialog"
+      style="position: relative; width: 100%; max-width: 840px; max-height: 90vh; background: #ffffff; color: #1e293b; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); transform: scale(0.96); transition: transform 0.3s;">
+      
+      <!-- Modal Top Bar -->
+      <div class="resume-modal-header"
+        style="padding: 1rem 1.5rem; background: #0f172a; color: #ffffff; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; flex-shrink: 0;">
+        <div style="display: flex; align-items: center; gap: 0.6rem; font-weight: 600; font-size: 1rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Curriculum Vitae / Resume</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <a href="assets/resume/resume.pdf" download="Arockia_Jerin_Infant_J_Resume.pdf" class="btn btn-primary"
+            style="padding: 0.45rem 1rem; font-size: 0.82rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download PDF
+          </a>
+          <button type="button" onclick="printResume()" class="btn btn-secondary"
+            style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print
+          </button>
+          <button type="button" class="resume-modal-close" id="resume-modal-close" onclick="closeResumeModal()" aria-label="Close resume"
+            style="background: none; border: none; color: #94a3b8; font-size: 1.8rem; cursor: pointer; line-height: 1; padding: 0 4px; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">&times;</button>
+        </div>
+      </div>
+
+      <!-- Printable Resume Sheet -->
+      <div id="resume-printable-area" class="resume-modal-body"
+        style="padding: 2.5rem; overflow-y: auto; flex: 1; font-family: var(--font-secondary, system-ui, sans-serif); line-height: 1.6; color: #334155;">
+        
+        <!-- Header -->
+        <div style="border-bottom: 2px solid #e2e8f0; padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
+          <h1 style="font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.35rem; letter-spacing: -0.5px;">Arockia Jerin Infant J</h1>
+          <p style="font-size: 1.1rem; font-weight: 600; color: #4f46e5; margin-bottom: 0.85rem;">MCA Student &amp; Aspiring Software Developer</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.9rem; color: #64748b;">
+            <span>📍 Coimbatore, Tamil Nadu, India</span>
+            <a href="https://www.linkedin.com/in/arockia-jerin-infant-j" target="_blank" rel="noopener noreferrer" style="color: #0a66c2; text-decoration: none; font-weight: 500;">
+              🔗 LinkedIn Profile
+            </a>
+            <a href="https://github.com/Jerin-45" target="_blank" rel="noopener noreferrer" style="color: #0f172a; text-decoration: none; font-weight: 500;">
+              🐙 GitHub: Jerin-45
+            </a>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.4rem; margin-bottom: 0.65rem;">Professional Summary</h2>
+          <p style="font-size: 0.93rem; color: #475569; line-height: 1.7; margin: 0;">
+            Motivated Master of Computer Applications (MCA) student at Rathinam Technical Campus with a solid Bachelor of Science in Computer Science background. Passionate about building modern, high-performance web applications, interactive software, computer vision tools, and exploring artificial intelligence and cloud computing.
+          </p>
+        </div>
+
+        <!-- Education -->
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.4rem; margin-bottom: 0.8rem;">Education</h2>
+          
+          <div style="margin-bottom: 0.85rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+              <strong style="color: #0f172a; font-size: 0.98rem;">Master of Computer Applications (MCA)</strong>
+              <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">2024 – Present</span>
+            </div>
+            <div style="color: #4f46e5; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem;">Rathinam Technical Campus</div>
+            <p style="font-size: 0.88rem; color: #64748b; margin: 0;">Focusing on advanced software engineering, cloud architecture, and modern full-stack web solutions.</p>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+              <strong style="color: #0f172a; font-size: 0.98rem;">Bachelor of Science (B.Sc.) in Computer Science</strong>
+              <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">2021 – 2024</span>
+            </div>
+            <div style="color: #4f46e5; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem;">Graduate</div>
+            <p style="font-size: 0.88rem; color: #64748b; margin: 0;">Solid foundation in core computer science, data structures, algorithms, and relational database systems.</p>
+          </div>
+        </div>
+
+        <!-- Technical Skills -->
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.4rem; margin-bottom: 0.75rem;">Technical Skills</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.65rem; font-size: 0.9rem;">
+            <div><strong style="color: #0f172a;">Languages:</strong> Python, Java, JavaScript (ES6+), HTML5, CSS3, SQL</div>
+            <div><strong style="color: #0f172a;">Frameworks &amp; Libraries:</strong> React, Supabase, Tailwind CSS, OpenCV, Pygame</div>
+            <div><strong style="color: #0f172a;">Tools &amp; Systems:</strong> Git, GitHub, VS Code, Browser DevTools</div>
+            <div><strong style="color: #0f172a;">Areas of Interest:</strong> Web Development, Computer Vision, AI &amp; Cloud</div>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.4rem; margin-bottom: 0.85rem;">Featured Projects</h2>
+          
+          <div style="margin-bottom: 0.9rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+              <strong style="color: #0f172a; font-size: 0.96rem;">Hope Spot Rescue Platform</strong>
+              <a href="https://github.com/Jerin-45/Hopespotrescueplatform" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; color: #4f46e5; text-decoration: none; font-weight: 500;">View on GitHub ↗</a>
+            </div>
+            <p style="font-size: 0.88rem; color: #475569; margin: 0.2rem 0;">A real-time, role-based roadside emergency rescue coordination platform with instant dispatch alerts and tracking dashboards.</p>
+            <div style="font-size: 0.82rem; color: #64748b; font-family: var(--font-mono, monospace);">Tech: React, TypeScript, Supabase, PostgreSQL, Tailwind CSS</div>
+          </div>
+
+          <div style="margin-bottom: 0.9rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+              <strong style="color: #0f172a; font-size: 0.96rem;">Vision Car Racing Game</strong>
+              <a href="https://github.com/Jerin-45/vision-car-game" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; color: #4f46e5; text-decoration: none; font-weight: 500;">View on GitHub ↗</a>
+            </div>
+            <p style="font-size: 0.88rem; color: #475569; margin: 0.2rem 0;">A computer-vision based arcade racing game enabling gesture-based steering via webcam hand tracking without needing a keyboard.</p>
+            <div style="font-size: 0.82rem; color: #64748b; font-family: var(--font-mono, monospace);">Tech: Python, OpenCV, Computer Vision, Pygame</div>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+              <strong style="color: #0f172a; font-size: 0.96rem;">AI Cloud Management Platform</strong>
+              <a href="https://github.com/Jerin-45/ai-colud-managment" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; color: #4f46e5; text-decoration: none; font-weight: 500;">View on GitHub ↗</a>
+            </div>
+            <p style="font-size: 0.88rem; color: #475569; margin: 0.2rem 0;">A clean, intelligent dashboard project for cloud resource management with AI-powered telemetry and insights.</p>
+            <div style="font-size: 0.82rem; color: #64748b; font-family: var(--font-mono, monospace);">Tech: Cloud Computing, AI, Dashboard UI</div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div>
+          <h2 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.4rem; margin-bottom: 0.75rem;">Verified Certifications</h2>
+          <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin: 0;">
+            All official course certifications, badges, and skill licenses are verified and directly watchable on LinkedIn:
+            <a href="https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/" target="_blank" rel="noopener noreferrer" style="color: #0a66c2; font-weight: 600; text-decoration: underline; margin-left: 4px;">
+              Watch All Certifications on LinkedIn Profile ↗
+            </a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

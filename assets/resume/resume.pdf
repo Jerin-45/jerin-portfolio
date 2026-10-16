@@ -1,0 +1,112 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2029 >>
+stream
+BT
+/F1 22 Tf
+50 750 Td
+(AROCKIA JERIN INFANT J) Tj
+0 -20 Td
+/F2 12 Tf
+(MCA Student & Aspiring Software Developer | Rathinam Technical Campus) Tj
+0 -16 Td
+/F2 10 Tf
+(LinkedIn: linkedin.com/in/arockia-jerin-infant-j | GitHub: github.com/Jerin-45) Tj
+0 -24 Td
+/F1 13 Tf
+(PROFESSIONAL SUMMARY) Tj
+0 -14 Td
+/F2 10 Tf
+(Passionate MCA student with a solid B.Sc. Computer Science foundation. Skilled in full-stack) Tj
+0 -12 Td
+(web development, Python, JavaScript, React, computer vision, and cloud computing.) Tj
+0 -22 Td
+/F1 13 Tf
+(EDUCATION) Tj
+0 -14 Td
+/F1 10 Tf
+(Master of Computer Applications (MCA)) Tj
+/F2 10 Tf
+ - Rathinam Technical Campus (2024 - Present) Tj
+0 -13 Td
+/F1 10 Tf
+(Bachelor of Science (B.Sc.) Computer Science) Tj
+/F2 10 Tf
+ - (2021 - 2024) Tj
+0 -22 Td
+/F1 13 Tf
+(TECHNICAL SKILLS) Tj
+0 -14 Td
+/F2 10 Tf
+(Languages: Python, Java, JavaScript, HTML5, CSS3, SQL) Tj
+0 -13 Td
+(Frameworks & Libs: React, Supabase, OpenCV, Pygame, Tailwind CSS) Tj
+0 -13 Td
+(Tools & Concepts: Git, GitHub, Full-Stack Web Development, AI, Cloud Computing) Tj
+0 -22 Td
+/F1 13 Tf
+(FEATURED PROJECTS) Tj
+0 -14 Td
+/F1 10 Tf
+(1. Hope Spot Rescue Platform) Tj
+0 -12 Td
+/F2 9.5 Tf
+(   Real-time roadside emergency coordination platform with role-based dispatch dashboards.) Tj
+0 -12 Td
+(   Tech: React, TypeScript, Supabase, PostgreSQL, Tailwind CSS) Tj
+0 -14 Td
+/F1 10 Tf
+(2. Vision Car Racing Game) Tj
+0 -12 Td
+/F2 9.5 Tf
+(   Gesture-controlled racing game utilizing computer vision and webcam input without keyboard.) Tj
+0 -12 Td
+(   Tech: Python, OpenCV, Computer Vision, Pygame) Tj
+0 -14 Td
+/F1 10 Tf
+(3. AI Cloud Management Platform) Tj
+0 -12 Td
+/F2 9.5 Tf
+(   Intelligent dashboard interface providing cloud management and AI-powered insights.) Tj
+0 -12 Td
+(   Tech: Cloud Computing, AI, Dashboard UI) Tj
+0 -22 Td
+/F1 13 Tf
+(CERTIFICATIONS & CREDENTIALS) Tj
+0 -14 Td
+/F2 10 Tf
+(Verified credentials and certifications accessible on LinkedIn:) Tj
+0 -12 Td
+(https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000002332 00000 n 
+0000002407 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2477
+%%EOF
