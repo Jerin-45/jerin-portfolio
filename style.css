@@ -607,6 +607,7 @@ ul { list-style: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 18%;
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   position: relative;
   z-index: 3;
@@ -667,31 +668,7 @@ ul { list-style: none; }
   to   { opacity: 1; }
 }
 
-/* Profile upload overlay */
-.profile-upload-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  background: rgba(91,82,240,0.75);
-  backdrop-filter: blur(4px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: white;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  opacity: 0;
-  transition: opacity var(--dur-med) var(--ease);
-  cursor: pointer;
-  z-index: 10;
-}
 
-.hero-image-frame:hover .profile-upload-overlay {
-  opacity: 1;
-}
 
 /* Floating badges */
 .floating-badge {
@@ -892,6 +869,7 @@ ul { list-style: none; }
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
+  object-position: center 18%;
   border-radius: var(--radius-lg);
   position: relative;
   z-index: 1;
@@ -1233,21 +1211,23 @@ ul { list-style: none; }
 
 .certs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.75rem;
 }
 
 .cert-card {
-  background: #ffffff;
-  border: 1px solid rgba(91, 82, 240, 0.1);
-  border-radius: var(--radius-lg);
-  padding: 2rem 1.75rem;
+  background: var(--clr-bg-card, #ffffff);
+  border: 1px solid var(--clr-border, rgba(0, 0, 0, 0.12));
+  border-radius: var(--radius-lg, 24px);
+  padding: 1.85rem 1.65rem;
   box-shadow: var(--shadow-card);
   transition: transform var(--dur-med) var(--ease-spring),
               border-color var(--dur-med) var(--ease),
               box-shadow var(--dur-med) var(--ease);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .cert-card::before {
@@ -1256,7 +1236,7 @@ ul { list-style: none; }
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: var(--grad-primary);
   transform: scaleX(0);
   transform-origin: left;
@@ -1264,8 +1244,8 @@ ul { list-style: none; }
 }
 
 .cert-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--clr-primary);
+  transform: translateY(-5px);
+  border-color: var(--clr-primary, #0a0a0a);
   box-shadow: var(--shadow-hover);
 }
 
@@ -1273,53 +1253,115 @@ ul { list-style: none; }
   transform: scaleX(1);
 }
 
+.cert-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
 .cert-icon {
-  width: 52px;
-  height: 52px;
-  background: rgba(91,82,240,0.08);
-  border: 1px solid rgba(91,82,240,0.18);
-  border-radius: var(--radius-md);
+  width: 46px;
+  height: 46px;
+  background: var(--clr-bg-2, #f5f5f5);
+  border: 1px solid var(--clr-border, rgba(0, 0, 0, 0.1));
+  border-radius: var(--radius-md, 14px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  margin-bottom: 1.25rem;
+  color: var(--clr-primary, #0a0a0a);
+  flex-shrink: 0;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+.cert-card:hover .cert-icon {
+  background: var(--clr-primary, #0a0a0a);
+  color: #ffffff;
+}
+
+.cert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #15803d;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.22);
+  border-radius: var(--radius-full, 9999px);
+  letter-spacing: 0.02em;
+}
+
+.cert-badge svg {
+  color: #16a34a;
 }
 
 .cert-title {
   font-family: var(--font-primary);
-  font-size: 1rem;
+  font-size: 1.12rem;
   font-weight: 700;
-  color: var(--clr-text);
+  color: var(--clr-text, #0a0a0a);
   line-height: 1.4;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .cert-org {
-  font-size: 0.85rem;
-  color: var(--clr-primary);
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-.cert-year {
   font-size: 0.8rem;
-  color: var(--clr-text-muted);
-  font-family: var(--font-mono);
+  color: var(--clr-text-muted, #666666);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
 }
 
-.cert-link {
+.cert-cred-id {
+  font-size: 0.73rem;
+  font-family: var(--font-mono, monospace);
+  color: var(--clr-text-muted, #666666);
+  margin-bottom: 0.85rem;
+  background: var(--clr-bg-2, #f5f5f5);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm, 6px);
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--clr-secondary);
-  transition: gap var(--dur-fast);
+  border: 1px solid var(--clr-border, rgba(0, 0, 0, 0.08));
+  width: fit-content;
 }
 
-.cert-link:hover { gap: 0.6rem; }
+.cert-cred-id span {
+  font-weight: 600;
+  color: var(--clr-text, #0a0a0a);
+}
+
+.cert-desc {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted, #666666);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.cert-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 0.95rem;
+  border-top: 1px dashed var(--clr-border, rgba(0, 0, 0, 0.12));
+}
+
+.cert-skill-tag {
+  font-size: 0.75rem;
+  font-family: var(--font-mono, monospace);
+  background: var(--clr-bg-2, #f5f5f5);
+  color: var(--clr-text, #0a0a0a);
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-sm, 6px);
+  border: 1px solid var(--clr-border, rgba(0, 0, 0, 0.08));
+  font-weight: 500;
+}
 
 .cert-placeholder {
   text-align: center;
@@ -1327,9 +1369,9 @@ ul { list-style: none; }
   color: var(--clr-text-muted);
   font-size: 0.95rem;
   grid-column: 1 / -1;
-  border: 1.5px dashed rgba(91, 82, 240, 0.2);
+  border: 1.5px dashed var(--clr-border);
   border-radius: var(--radius-lg);
-  background: rgba(91, 82, 240, 0.02);
+  background: var(--clr-bg-2);
 }
 
 /* ══════════════════════════════════════════════════════

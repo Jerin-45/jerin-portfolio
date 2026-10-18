@@ -92,31 +92,79 @@ const portfolioData = {
   ],
 
   // ── Certifications ───────────────────────────────────
-  // Add your certifications here.
+  // Completed certifications, skill competencies & coursework
   certifications: [
     {
-      title:           "HTML & Web Development Fundamentals",
-      organization:    "LinkedIn / Certified",
-      issueDate:       "Verified Credential",
-      certificateLink: "https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/"
+      title:        "Design Thinking and Innovation",
+      organization: "IIT Bombay",
+      issueDate:    "Sep 2026",
+      credentialId: "RQ999QR5UB1U",
+      description:  "Mastered human-centered design principles, empathy mapping, ideation frameworks, rapid concept prototyping, and user-centric innovation methodologies.",
+      skills:       ["Design Thinking", "Human-Centered Design", "User Empathy", "Prototyping", "Innovation Strategy"],
+      icon:         "design"
     },
     {
-      title:           "CSS & Responsive Web Design",
-      organization:    "LinkedIn / Certified",
-      issueDate:       "Verified Credential",
-      certificateLink: "https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/"
+      title:        "C for Everyone, Part 2: Structured Programming",
+      organization: "University of California, Santa Cruz",
+      issueDate:    "Sep 2026",
+      credentialId: "UQ5U4T4XDYXN",
+      description:  "Engineered robust procedural software leveraging advanced C structured programming, dynamic memory allocation, pointer arithmetic, structs, and recursive algorithms.",
+      skills:       ["Structured C", "Pointers & Memory", "Dynamic Allocation", "Structs & ADTs", "Recursion"],
+      icon:         "c-lang"
     },
     {
-      title:           "JavaScript (ES6+) Programming",
-      organization:    "LinkedIn / Certified",
-      issueDate:       "Verified Credential",
-      certificateLink: "https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/"
+      title:        "C for Everyone, Part 1: Programming Fundamentals",
+      organization: "University of California, Santa Cruz",
+      issueDate:    "Sep 2026",
+      credentialId: "APUFRPJPE4Y1",
+      description:  "Mastered foundational C programming concepts including lexical structure, variables, conditional logic, loops, functions, and algorithmic execution.",
+      skills:       ["C Fundamentals", "Control Flow", "Functions & Arrays", "Procedural Logic", "Algorithms"],
+      icon:         "c-lang"
     },
     {
-      title:           "ATM Builder & System Simulation",
-      organization:    "Technical Credential",
-      issueDate:       "Verified Credential",
-      certificateLink: "https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/"
+      title:        "SQL for Data Science",
+      organization: "Coursera (UC Davis)",
+      issueDate:    "Sep 2026",
+      credentialId: "E6N6D5Y7M4YY7",
+      description:  "Executed complex relational queries, multi-table joins, subqueries, data aggregation, filtering, and data profiling for data science pipelines.",
+      skills:       ["SQL Queries", "Relational Joins", "Data Aggregation", "Subqueries", "Data Profiling"],
+      icon:         "database"
+    },
+    {
+      title:        "Programming for Everybody (Getting Started with Python)",
+      organization: "University of Michigan",
+      issueDate:    "Aug 2026",
+      credentialId: "VRTPN5D7TD7M",
+      description:  "Completed foundational Python engineering covering data types, expressions, conditional branching, iterative loops, functions, and modular scripting.",
+      skills:       ["Python 3", "Conditional Logic", "Loops & Iterations", "Functions", "Procedural Scripting"],
+      icon:         "python"
+    },
+    {
+      title:        "Responsible AI: Applying AI Principles with Google Cloud",
+      organization: "Google",
+      issueDate:    "Jul 2026",
+      credentialId: "Google Cloud Verified",
+      description:  "Operationalized responsible AI frameworks, ethical machine learning governance, bias mitigation, fairness metrics, and transparency on Google Cloud Platform.",
+      skills:       ["Responsible AI", "Google Cloud (GCP)", "AI Governance", "Ethics & Fairness", "Transparency"],
+      icon:         "google"
+    },
+    {
+      title:        "Claude Platform 101",
+      organization: "Anthropic",
+      issueDate:    "Jul 2026",
+      credentialId: "Anthropic Verified",
+      description:  "Trained on the Claude platform architecture, API integrations, context window optimization, tool-use execution, and prompt engineering best practices.",
+      skills:       ["Claude API", "Anthropic Platform", "Prompt Engineering", "Tool Use & Function Calling", "LLM Workflows"],
+      icon:         "anthropic"
+    },
+    {
+      title:        "Agents and Workflows",
+      organization: "OpenAI",
+      issueDate:    "Jul 2026",
+      credentialId: "4r6xbltdhfkg",
+      description:  "Architected autonomous multi-agent systems, complex workflow orchestrations, function calling pipelines, and stateful agent coordination.",
+      skills:       ["AI Agents", "Agentic Workflows", "Function Calling", "Tool Orchestration", "Autonomous Systems"],
+      icon:         "openai"
     }
   ],
 
@@ -216,7 +264,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroCanvas();
   initHeroTextAnimation();
   initScrollReveal();
-  initProfileUpload();
   initBackToTop();
   initSmoothScroll();
 });
@@ -241,9 +288,9 @@ function initLoader() {
 function injectData() {
   const d = portfolioData;
 
-  // Resolve profile image (localStorage override or default)
-  const storedPhoto = localStorage.getItem("profilePhoto");
-  const profileSrc  = storedPhoto || d.profileImage;
+  // Resolve profile image (fixed to permanent profile asset)
+  localStorage.removeItem("profilePhoto");
+  const profileSrc = d.profileImage;
 
   // ── Hero Section ─────────────────────────────────
   safeSetAttr("hero-name",        "textContent", d.name);
@@ -357,24 +404,64 @@ function injectData() {
   // ── Certifications ───────────────────────────────
   const certsGrid = document.getElementById("certs-grid");
   if (certsGrid) {
-    if (d.certifications.length === 0) {
+    if (!d.certifications || d.certifications.length === 0) {
       certsGrid.innerHTML = `
         <div class="cert-placeholder" data-reveal>
           <p>🎓 Certifications will appear here once added to the configuration.</p>
         </div>
       `;
     } else {
+      const getCertIconSvg = (iconType) => {
+        switch (iconType) {
+          case "design":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>`;
+          case "c-lang":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`;
+          case "google":
+            return `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>`;
+          case "anthropic":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 3.5H13.8L21 20.5h3.67L17.47 3.5zm-10.94 0L0 20.5h3.67l1.7-4.1h7.06l1.7 4.1h3.67L10.6 3.5H6.53zm-.12 10.15 2.39-5.75 2.39 5.75H6.41z"/></svg>`;
+          case "openai":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M22.28 9.38a5.95 5.95 0 0 0-.52-4.93 6.08 6.08 0 0 0-6.53-2.86 6.04 6.04 0 0 0-4.66-2.09 6.08 6.08 0 0 0-5.8 4.24 6.06 6.06 0 0 0-4.04 2.92 6.07 6.07 0 0 0 .74 7.15 5.95 5.95 0 0 0 .52 4.93 6.08 6.08 0 0 0 6.53 2.86 6.04 6.04 0 0 0 4.66 2.09 6.08 6.08 0 0 0 5.8-4.24 6.06 6.06 0 0 0 4.04-2.92 6.07 6.07 0 0 0-.74-7.15zm-8.86 11.8a4.57 4.57 0 0 1-2.92-.72l.14-.08 4.88-2.82a.77.77 0 0 0 .39-.67v-6.88l2.07 1.2v5.68a4.58 4.58 0 0 1-4.56 4.29zm-7.66-3.71a4.54 4.54 0 0 1-.53-2.98l.14.09 4.88 2.82c.24.14.53.14.77 0l5.96-3.44v2.39l-4.92 2.84a4.58 4.58 0 0 1-6.3-1.72zm-2.05-8.24a4.57 4.57 0 0 1 2.39-2.27v5.82a.76.76 0 0 0 .38.67l5.96 3.44-2.07 1.2-4.92-2.84a4.58 4.58 0 0 1-1.74-6.02zm12.33 1.95-5.96-3.44 2.07-1.2 4.92 2.84a4.58 4.58 0 0 1 1.74 6.02 4.57 4.57 0 0 1-2.39 2.27v-5.82a.76.76 0 0 0-.38-.67zm3.03-2.58-.14-.09-4.88-2.82a.78.78 0 0 0-.77 0l-5.96 3.44v-2.39l4.92-2.84a4.58 4.58 0 0 1 6.83 4.7zm-8.83 5.09-2.68-1.55 2.68-1.55 2.68 1.55z"/></svg>`;
+          case "database":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>`;
+          case "python":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 20-6-6 6-6"/><path d="m14 4 6 6-6 6"/></svg>`;
+          case "html":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`;
+          case "css":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`;
+          case "js":
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 8 5 5-5 5"/><path d="M13 18h4"/></svg>`;
+          default:
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>`;
+        }
+      };
+
       certsGrid.innerHTML = d.certifications.map((cert, i) => `
-        <div class="cert-card" role="listitem" data-reveal data-reveal-delay="${Math.min(i * 100, 300)}" onclick="window.open('${cert.certificateLink || 'https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/'}', '_blank')" style="cursor: pointer;">
-          <div class="cert-icon" style="color: #0a66c2;">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        <div class="cert-card" role="listitem" data-reveal data-reveal-delay="${Math.min(i * 100, 300)}">
+          <div class="cert-card-header">
+            <div class="cert-icon" aria-hidden="true">
+              ${getCertIconSvg(cert.icon)}
+            </div>
+            <span class="cert-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              ${cert.issueDate || 'Completed'}
+            </span>
           </div>
-          <div class="cert-title">${cert.title}</div>
+          <h3 class="cert-title">${cert.title}</h3>
           <div class="cert-org">${cert.organization}</div>
-          ${cert.issueDate || cert.year ? `<div class="cert-year" style="color: #0a66c2; font-weight: 600;">${cert.issueDate || cert.year}</div>` : ""}
-          <a href="${cert.certificateLink || 'https://www.linkedin.com/in/arockia-jerin-infant-j/details/certifications/'}" target="_blank" rel="noopener noreferrer" class="cert-link" aria-label="Watch ${cert.title} on LinkedIn profile" onclick="event.stopPropagation()">
-            Watch on LinkedIn Profile →
-          </a>
+          ${cert.credentialId ? `
+            <div class="cert-cred-id" title="Verified Credential ID">
+              <span>ID:</span> ${cert.credentialId}
+            </div>
+          ` : ""}
+          ${cert.description ? `<p class="cert-desc">${cert.description}</p>` : ""}
+          ${Array.isArray(cert.skills) && cert.skills.length > 0 ? `
+            <div class="cert-skills" aria-label="Skills completed in ${cert.title}">
+              ${cert.skills.map(skill => `<span class="cert-skill-tag">${skill}</span>`).join("")}
+            </div>
+          ` : ""}
         </div>
       `).join("");
     }
@@ -746,37 +833,7 @@ function initScrollReveal() {
   setTimeout(observeAll, 200);
 }
 
-// ── Profile Photo Upload (localStorage) ──────────────────────────────────────
-function initProfileUpload() {
-  const input     = document.getElementById("profile-upload-input");
-  const heroImg   = document.getElementById("hero-profile-img");
-  const aboutImg  = document.getElementById("about-profile-img");
 
-  if (!input) return;
-
-  input.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (!file || !file.type.startsWith("image/")) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target.result;
-
-      // Update all profile images immediately
-      if (heroImg)  heroImg.src  = dataUrl;
-      if (aboutImg) aboutImg.src = dataUrl;
-
-      // Persist in localStorage so it survives page refresh
-      try {
-        localStorage.setItem("profilePhoto", dataUrl);
-      } catch (err) {
-        // localStorage quota exceeded (large image) – silently fail
-        console.warn("Could not save photo to localStorage:", err.message);
-      }
-    };
-    reader.readAsDataURL(file);
-  });
-}
 
 // ── Back to Top ──────────────────────────────────────────────────────────────
 function initBackToTop() {
