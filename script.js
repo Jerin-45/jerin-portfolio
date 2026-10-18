@@ -199,62 +199,6 @@ const portfolioData = {
 // ===============================
 // Everything below is the engine — you generally don't need to edit it.
 
-// ── IndexedDB for Media Storage ─────────────────────────────────────────────
-const dbName = "PortfolioMediaDB";
-const storeName = "videos";
-
-function initDB(callback) {
-  try {
-    const request = indexedDB.open(dbName, 1);
-    request.onupgradeneeded = function(e) {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains(storeName)) {
-        db.createObjectStore(storeName);
-      }
-    };
-    request.onsuccess = function(e) {
-      callback(e.target.result);
-    };
-    request.onerror = function(e) {
-      console.warn("IndexedDB error:", e);
-    };
-  } catch (err) {
-    console.warn("IndexedDB open error:", err);
-  }
-}
-
-function saveVideoToDB(id, file) {
-  initDB(function(db) {
-    try {
-      const transaction = db.transaction([storeName], "readwrite");
-      const store = transaction.objectStore(storeName);
-      store.put(file, id);
-    } catch (err) {
-      console.warn("Could not save video to DB:", err);
-    }
-  });
-}
-
-function loadVideoFromDB(id, callback) {
-  initDB(function(db) {
-    try {
-      const transaction = db.transaction([storeName], "readonly");
-      const store = transaction.objectStore(storeName);
-      const request = store.get(id);
-      request.onsuccess = function(e) {
-        if (e.target.result) {
-          callback(e.target.result);
-        }
-      };
-      request.onerror = function() {
-        console.warn("Could not load video from DB:", id);
-      };
-    } catch (err) {
-      console.warn("DB transaction error:", err);
-    }
-  });
-}
-
 // ── DOM Ready ────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   initLoader();
@@ -337,27 +281,27 @@ function injectData() {
   }
 
   // ── Projects ─────────────────────────────────────
+  // ── Projects Section ─────────────────────────────
   const projectsGrid = document.getElementById("projects-grid");
   if (projectsGrid) {
     projectsGrid.innerHTML = d.projects.map((p, i) => {
-      const isVideoSaved = localStorage.getItem(`project_video_saved_${i}`) === "true";
       const hasStaticVideo = Boolean(p.video && p.video.trim());
-      const isLocked = isVideoSaved || hasStaticVideo;
 
       return `
       <article class="project-card" role="listitem" data-reveal data-reveal-delay="${Math.min(i * 100, 300)}">
         <div class="project-image-wrap" id="project-media-${i}">
-          ${p.image ? `<img src="${p.image}" alt="${p.title}" class="project-img" loading="lazy" />` : `<div class="project-img" style="background: linear-gradient(135deg, #111, #222);"></div>`}
-          <div class="project-overlay"></div>
-          
-          ${!isLocked ? `
-          <label id="project-upload-label-${i}" for="project-upload-${i}" style="position: absolute; top: 10px; right: 10px; z-index: 20; background: rgba(91, 82, 240, 0.9); color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Upload Video
-          </label>
-          <input type="file" id="project-upload-${i}" accept="video/*" class="sr-only" onchange="handleProjectVideoUpload(event, ${i})" />
-          ` : ""}
-          
+          ${hasStaticVideo ? `
+            <video src="${p.video}" ${p.image ? `poster="${p.image}"` : ""} class="project-img" autoplay loop muted playsinline style="object-fit: cover; width: 100%; height: 100%; position: absolute; inset: 0;"></video>
+            <div class="project-overlay"></div>
+            <div class="play-button-overlay" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 5; pointer-events: none;">
+              <button type="button" aria-label="Play video full screen" style="width: 58px; height: 58px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.35); pointer-events: all; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" onclick="openVideoModal('${p.video}')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#0a0a0a" style="margin-left: 3px;"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+          ` : `
+            ${p.image ? `<img src="${p.image}" alt="${p.title}" class="project-img" loading="lazy" />` : `<div class="project-img" style="background: linear-gradient(135deg, #111, #222);"></div>`}
+            <div class="project-overlay"></div>
+          `}
           <span class="project-tag">Project</span>
         </div>
         <div class="project-body">
@@ -384,22 +328,6 @@ function injectData() {
       </article>
       `;
     }).join("");
-
-    // Load static videos or saved videos from IndexedDB
-    d.projects.forEach((p, i) => {
-      if (p.video && p.video.trim()) {
-        if (window.renderUploadedVideo) {
-          window.renderUploadedVideo(p.video, i);
-        }
-      } else {
-        loadVideoFromDB(`project-video-${i}`, (file) => {
-          if (file && window.renderUploadedVideo) {
-            localStorage.setItem(`project_video_saved_${i}`, "true");
-            window.renderUploadedVideo(file, i);
-          }
-        });
-      }
-    });
   }
 
   // ── Certifications ───────────────────────────────
@@ -923,53 +851,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ── Project Video Upload Handler ─────────────────────────────────────────────
-window.renderUploadedVideo = function(fileOrUrl, index) {
-  const videoUrl = typeof fileOrUrl === "string" ? fileOrUrl : URL.createObjectURL(fileOrUrl);
-  const wrap = document.getElementById(`project-media-${index}`);
-  if (!wrap) return;
 
-  // Permanently remove upload button & file input from DOM
-  const uploadLabel = document.getElementById(`project-upload-label-${index}`);
-  if (uploadLabel) uploadLabel.remove();
-  const uploadInput = document.getElementById(`project-upload-${index}`);
-  if (uploadInput) uploadInput.remove();
-
-  const project = portfolioData.projects && portfolioData.projects[index];
-  const posterAttr = project && project.image ? `poster="${project.image}"` : "";
-
-  wrap.innerHTML = `
-    <video src="${videoUrl}" ${posterAttr} class="project-img" autoplay loop muted playsinline style="object-fit: cover; width: 100%; height: 100%; position: absolute; inset: 0;"></video>
-    <div class="project-overlay"></div>
-    <span class="project-tag">Project</span>
-    
-    <div class="play-button-overlay" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 5; pointer-events: none;">
-      <button type="button" aria-label="Play video full screen" style="width: 58px; height: 58px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.35); pointer-events: all; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" onclick="openVideoModal('${videoUrl}')">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="#0a0a0a" style="margin-left: 3px;"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-    </div>
-  `;
-};
-
-window.handleProjectVideoUpload = function(event, index) {
-  const file = event.target.files && event.target.files[0];
-  if (!file || !file.type.startsWith("video/")) return;
-
-  // 1. Permanently lock upload in localStorage so it never shows again
-  localStorage.setItem(`project_video_saved_${index}`, "true");
-
-  // 2. Remove upload button and file input immediately from DOM
-  const uploadLabel = document.getElementById(`project-upload-label-${index}`);
-  if (uploadLabel) uploadLabel.remove();
-  const uploadInput = document.getElementById(`project-upload-${index}`);
-  if (uploadInput) uploadInput.remove();
-
-  // 3. Automatically save the video into IndexedDB
-  saveVideoToDB(`project-video-${index}`, file);
-
-  // 4. Render the uploaded video in the card
-  window.renderUploadedVideo(file, index);
-};
 
 // ── Resume Modal Handlers ───────────────────────────────────────────────────
 window.openResumeModal = function(e) {
