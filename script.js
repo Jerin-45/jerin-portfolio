@@ -26,7 +26,7 @@ const portfolioData = {
   // ── Social Links ─────────────────────────────────────
   linkedin: "https://www.linkedin.com/in/arockia-jerin-infant-j",
   github:   "https://github.com/Jerin-45",
-  email:    "",   // Add your email here, e.g. "youremail@gmail.com"
+  email:    "arojerin7@gmail.com",
 
   // ── About Section ────────────────────────────────────
   about: {
@@ -299,6 +299,7 @@ function injectData() {
   safeSetSrc("hero-profile-img",  profileSrc);
   safeSetHref("btn-linkedin",     d.linkedin);
   safeSetHref("btn-github",       d.github);
+  safeSetHref("btn-email",        d.email ? `mailto:${d.email}` : "");
 
   // Resume modal buttons
   const btnResume = document.getElementById("btn-resume");
