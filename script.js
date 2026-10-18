@@ -68,8 +68,7 @@ const portfolioData = {
       image:       "assets/projects/hopespot.jpg",
       technologies: ["React", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
       github:      "https://github.com/Jerin-45/Hopespotrescueplatform",
-      live:        "",
-      video:       "" // Add video URL here (e.g. MP4 link or YouTube embed)
+      video:       ""
     },
     {
       title:       "Vision Car Racing Game",
@@ -77,8 +76,7 @@ const portfolioData = {
       image:       "assets/projects/vision-car.jpg",
       technologies: ["Python", "OpenCV", "Computer Vision", "Pygame"],
       github:      "https://github.com/Jerin-45/vision-car-game",
-      live:        "",
-      video:       "" // Add video URL here
+      video:       "assets/projects/vision-car-demo.mp4"
     },
     {
       title:       "AI Cloud Management Platform",
