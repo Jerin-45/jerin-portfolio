@@ -68,7 +68,7 @@ const portfolioData = {
       image:       "assets/projects/hopespot.jpg",
       technologies: ["React", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
       github:      "https://github.com/Jerin-45/Hopespotrescueplatform",
-      video:       ""
+      video:       "assets/projects/hopespot-demo.mp4"
     },
     {
       title:       "Vision Car Racing Game",
